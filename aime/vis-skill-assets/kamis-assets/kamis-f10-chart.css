@@ -1,0 +1,33 @@
+:root { --bd:#e3e6ea; --fg:rgba(0,0,0,.84); --dim:rgba(0,0,0,.45); --active:#f0f0f0; --period-track:#ebebeb; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: transparent; font-family: system-ui, -apple-system, "PingFang SC", sans-serif; color: var(--fg); }
+.chart-wrap { background: transparent; border: 1px solid var(--bd); border-radius: 8px; overflow: hidden; }
+.chart-wrap.sankey-page { overflow: visible; }
+.chart-wrap.sankey-page .web-news-center-f10-sankey-box,
+.chart-wrap.sankey-page .f10Biz-sankey-drop-down { overflow: visible; }
+.chart-wrap.sankey-page .thsc-f10-dropDown-menu-list { z-index: 20; }
+#chrome-root { padding: 12px 12px 0; }
+#charts-root { padding: 0 12px; }
+.amis-root { min-height: 380px; width: 100%; }
+.amis-root .web-lite-f10-box,
+.amis-root .cxd-Page,
+.amis-root .cxd-Page-content { width: 100% !important; max-width: 100% !important; }
+.amis-root .matrix-f-eps-chart { height: 240px !important; }
+.hidden { display: none !important; }
+.ki-module-label { font-size: 11px; color: var(--dim); margin-bottom: 6px; font-weight: 600; }
+.ki-row { display: flex; flex-wrap: wrap; gap: 8px 12px; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+.ki-tabs { display: flex; flex-wrap: wrap; gap: 2px; flex: 1; min-width: 0; }
+.ki-tab {
+  border: none; background: transparent; color: var(--fg);
+  padding: 6px 12px; border-radius: 8px; font-size: 13px; line-height: 1.2; cursor: pointer;
+}
+.ki-tab:hover { background: rgba(0,0,0,.04); }
+.ki-tab.active { background: var(--active); font-weight: 600; }
+.ki-period {
+  display: inline-flex; padding: 2px; background: var(--period-track); border-radius: 999px; gap: 2px; flex-shrink: 0;
+}
+.ki-period-btn {
+  border: none; background: transparent; color: var(--fg);
+  padding: 5px 12px; border-radius: 999px; font-size: 12px; cursor: pointer;
+}
+.ki-period-btn.active { background: #fff; color: var(--fg); font-weight: 600; box-shadow: 0 1px 3px rgba(0,0,0,.08); }
