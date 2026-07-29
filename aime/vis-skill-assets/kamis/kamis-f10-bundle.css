@@ -71,7 +71,7 @@ html[data-theme="dark"] {
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body { background: transparent; font-family: system-ui, -apple-system, "PingFang SC", sans-serif; color: var(--fg); }
 body[data-f10-chart-frame] { padding-bottom: 1px !important; }
-.chart-wrap { position: relative; background: transparent; border: 1px solid var(--bd) !important; border-radius: 8px; overflow: hidden; }
+.chart-wrap { position: relative; background: transparent; border: 0 !important; border-radius: 8px; overflow: hidden; }
 .chart-wrap.sankey-page { overflow: visible; }
 .chart-wrap.sankey-page .web-news-center-f10-sankey-box,
 .chart-wrap.sankey-page .f10Biz-sankey-drop-down { overflow: visible; }

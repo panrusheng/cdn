@@ -79,26 +79,37 @@ window.__KAMIS_SCHEMA_22838 =
     return '';
   }
 
+  function isPcBrowser(userAgent) {
+    var ua = String(userAgent || '');
+    if (!ua || /(Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Mobile|Tablet|HarmonyOS|ArkWeb)/i.test(ua)) {
+      return false;
+    }
+    return /(Windows NT|Macintosh|X11|CrOS|Linux x86_64)/i.test(ua);
+  }
+
   function configureFrame(input) {
     var isSankey = input.page === 20863;
     var chartWrap = document.querySelector('.chart-wrap');
     var chromeRoot = document.getElementById('chrome-root');
     var exchangeByMarket = { '185': 'NASDAQ', '169': 'NYSE' };
     var exchange = exchangeByMarket[String(input.data.market)];
-    var externalLink = document.createElement('a');
+    var externalLink = null;
 
-    externalLink.className = 'f10-external-link';
-    externalLink.target = '_blank';
-    externalLink.rel = 'noopener noreferrer';
-    externalLink.setAttribute('aria-label', 'Open financials on AInvest');
-    externalLink.title = 'Open financials on AInvest';
-    externalLink.innerHTML = [
-      '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true">',
-      '<path d="M14 5h5v5M19 5l-8 8" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" />',
-      '<path d="M19 13v5a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h5" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" />',
-      '</svg>'
-    ].join('');
-    chartWrap.insertBefore(externalLink, chartWrap.firstChild);
+    if (isPcBrowser(navigator.userAgent)) {
+      externalLink = document.createElement('a');
+      externalLink.className = 'f10-external-link';
+      externalLink.target = '_blank';
+      externalLink.rel = 'noopener noreferrer';
+      externalLink.setAttribute('aria-label', 'Open financials on AInvest');
+      externalLink.title = 'Open financials on AInvest';
+      externalLink.innerHTML = [
+        '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true">',
+        '<path d="M14 5h5v5M19 5l-8 8" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" />',
+        '<path d="M19 13v5a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h5" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" />',
+        '</svg>'
+      ].join('');
+      chartWrap.insertBefore(externalLink, chartWrap.firstChild);
+    }
 
     if (isSankey) {
       var header = document.createElement('div');
@@ -108,15 +119,17 @@ window.__KAMIS_SCHEMA_22838 =
       title.textContent = 'Revenue & Expenses';
       header.appendChild(title);
       chartWrap.insertBefore(header, chromeRoot);
-      externalLink.classList.add('f10-sankey-link');
+      if (externalLink) externalLink.classList.add('f10-sankey-link');
     }
 
-    if (exchange) {
-      externalLink.href = 'https://www.ainvest.com/stocks/'
-        + exchange + '-' + encodeURIComponent(input.data.code)
-        + '/financials/' + getFinancialsSection(input);
-    } else {
-      externalLink.hidden = true;
+    if (externalLink) {
+      if (exchange) {
+        externalLink.href = 'https://www.ainvest.com/stocks/'
+          + exchange + '-' + encodeURIComponent(input.data.code)
+          + '/financials/' + getFinancialsSection(input);
+      } else {
+        externalLink.hidden = true;
+      }
     }
   }
 
