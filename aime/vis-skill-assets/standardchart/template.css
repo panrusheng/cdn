@@ -8,7 +8,6 @@ body {
   display: grid;
   grid-template-rows: minmax(48px, auto) auto;
   overflow: hidden;
-  border-radius: 12px;
 }
 
 header {
