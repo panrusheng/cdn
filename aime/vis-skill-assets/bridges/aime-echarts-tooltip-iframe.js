@@ -184,6 +184,24 @@
     );
   }
 
+  function registerTooltipSource(node) {
+    if (
+      !node ||
+      node.nodeType !== 1 ||
+      node.tagName !== "DIV" ||
+      node.domBelongToZr !== true
+    ) {
+      return;
+    }
+    if (!node.classList.contains(SOURCE_CLASS)) node.classList.add(SOURCE_CLASS);
+  }
+
+  function discoverTooltipSources(node) {
+    if (!node || node.nodeType !== 1) return;
+    registerTooltipSource(node);
+    Array.prototype.forEach.call(node.querySelectorAll("div"), registerTooltipSource);
+  }
+
   function syncTooltip() {
     scheduled = false;
     var sources = document.querySelectorAll("." + SOURCE_CLASS);
@@ -237,7 +255,14 @@
     var style = document.createElement("style");
     style.textContent = "." + SOURCE_CLASS + "{opacity:0!important;pointer-events:none!important}";
     (document.head || document.documentElement).appendChild(style);
-    new MutationObserver(scheduleSync).observe(document.documentElement, {
+    discoverTooltipSources(document.documentElement);
+    new MutationObserver(function (records) {
+      records.forEach(function (record) {
+        if (record.type === "attributes") registerTooltipSource(record.target);
+        Array.prototype.forEach.call(record.addedNodes || [], discoverTooltipSources);
+      });
+      scheduleSync();
+    }).observe(document.documentElement, {
       attributes: true,
       attributeFilter: ["class", "style"],
       characterData: true,
