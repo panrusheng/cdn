@@ -119,6 +119,15 @@ window.__KAMIS_SCHEMA_22838 =
       header.appendChild(title);
       chartWrap.insertBefore(header, chromeRoot);
       if (externalLink) externalLink.classList.add('f10-sankey-link');
+    } else if (input.page === 22831) {
+      var earningsHeader = document.createElement('div');
+      var earningsTitle = document.createElement('div');
+      earningsHeader.className = 'f10-header';
+      earningsTitle.className = 'ki-module-label f10-section-title';
+      var earningsScene = String((input.data && input.data.scene) || '');
+      earningsTitle.textContent = /revenue/i.test(earningsScene) ? 'Revenue' : 'EPS';
+      earningsHeader.appendChild(earningsTitle);
+      chartWrap.insertBefore(earningsHeader, chromeRoot);
     }
 
     if (externalLink) {
