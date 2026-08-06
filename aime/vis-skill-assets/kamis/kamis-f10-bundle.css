@@ -101,9 +101,11 @@ html[data-theme="dark"] .ki-module-label {
   margin: 0 -48px 8px -12px;
   padding: 14px 48px 14px 12px;
   background-color: rgba(0, 0, 0, 0.04);
+  border-bottom: 0.5px solid rgba(0, 0, 0, 0.1);
 }
 html[data-theme="dark"] #chrome-root .ki-module-label {
   background-color: rgba(255, 255, 255, 0.06);
+  border-bottom-color: rgba(255, 255, 255, 0.1);
 }
 .ki-row { display: flex; flex-wrap: wrap; gap: 8px 12px; align-items: center; justify-content: space-between; margin-bottom: 8px; }
 .ki-tabs { display: flex; flex: 1 1 600px; flex-wrap: wrap; gap: 6px 8px; min-width: 0; }
@@ -148,9 +150,11 @@ html[data-theme="dark"] #chrome-root .ki-module-label {
   align-items: center;
   padding: 14px 48px 14px 12px;
   background-color: rgba(0, 0, 0, 0.04);
+  border-bottom: 0.5px solid rgba(0, 0, 0, 0.1);
 }
 html[data-theme="dark"] .f10-header {
   background-color: rgba(255, 255, 255, 0.06);
+  border-bottom-color: rgba(255, 255, 255, 0.1);
 }
 .f10-header[hidden] { display: none; }
 .f10-section-title { margin-bottom: 0; }
