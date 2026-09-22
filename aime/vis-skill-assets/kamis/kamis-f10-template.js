@@ -62,83 +62,16 @@ window.__KAMIS_SCHEMA_22838 =
     };
   }
 
-  function getFinancialsSection(input) {
-    if (input.page === 22831) return 'earnings/';
-    if (input.page !== 22838) return '';
-
-    var scene = String(input.data.scene || '');
-    if (scene.startsWith('Key-Indicators::')) return 'statistics/';
-    if (
-      scene.startsWith('Income-Statement::')
-      || scene.startsWith('Balance-Sheet::')
-      || scene.startsWith('Cash-Flow::')
-    ) {
-      return 'statement/';
-    }
-    if (scene.startsWith('Revenue-Breakdown-')) return 'revenue-breakdown/';
-    return '';
-  }
-
-  function isPcBrowser(userAgent) {
-    var ua = String(userAgent || '');
-    if (!ua || /(Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Mobile|Tablet|HarmonyOS|ArkWeb)/i.test(ua)) {
-      return false;
-    }
-    return /(Windows NT|Macintosh|X11|CrOS|Linux x86_64)/i.test(ua);
-  }
-
-  function configureFrame(input) {
-    var isSankey = input.page === 20863;
-    var chartWrap = document.querySelector('.chart-wrap');
+  function removeInternalHeaders() {
     var chromeRoot = document.getElementById('chrome-root');
-    var exchangeByMarket = { '185': 'NASDAQ', '169': 'NYSE' };
-    var exchange = exchangeByMarket[String(input.data.market)];
-    var externalLink = null;
-
-    if (isPcBrowser(navigator.userAgent)) {
-      externalLink = document.createElement('a');
-      externalLink.className = 'f10-external-link';
-      externalLink.target = '_blank';
-      externalLink.rel = 'noopener noreferrer';
-      externalLink.setAttribute('aria-label', 'Open financials on AInvest');
-      externalLink.title = 'Open financials on AInvest';
-      externalLink.innerHTML = [
-        '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">',
-        '<path d="M7.96912 4.03027L15.9382 11.9993L7.96912 19.9684" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="round"/>',
-        '</svg>'
-      ].join('');
-      chartWrap.insertBefore(externalLink, chartWrap.firstChild);
-    }
-
-    if (isSankey) {
-      var header = document.createElement('div');
-      var title = document.createElement('div');
-      header.className = 'f10-header';
-      title.className = 'ki-module-label f10-section-title';
-      title.textContent = 'Revenue & Expenses';
-      header.appendChild(title);
-      chartWrap.insertBefore(header, chromeRoot);
-      if (externalLink) externalLink.classList.add('f10-sankey-link');
-    } else if (input.page === 22831) {
-      var earningsHeader = document.createElement('div');
-      var earningsTitle = document.createElement('div');
-      earningsHeader.className = 'f10-header';
-      earningsTitle.className = 'ki-module-label f10-section-title';
-      var earningsScene = String((input.data && input.data.scene) || '');
-      earningsTitle.textContent = /revenue/i.test(earningsScene) ? 'Revenue' : 'EPS';
-      earningsHeader.appendChild(earningsTitle);
-      chartWrap.insertBefore(earningsHeader, chromeRoot);
-    }
-
-    if (externalLink) {
-      if (exchange) {
-        externalLink.href = 'https://www.ainvest.com/stocks/'
-          + exchange + '-' + encodeURIComponent(input.data.code)
-          + '/financials/' + getFinancialsSection(input);
-      } else {
-        externalLink.hidden = true;
-      }
-    }
+    if (!chromeRoot) return;
+    var remove = function() {
+      chromeRoot.querySelectorAll('.ki-module-label').forEach(function(element) {
+        element.remove();
+      });
+    };
+    new MutationObserver(remove).observe(chromeRoot, { childList: true, subtree: true });
+    remove();
   }
 
   function configureRenderer(input) {
@@ -158,7 +91,7 @@ window.__KAMIS_SCHEMA_22838 =
   function init() {
     var input = window.KAMIS_INPUT;
     if (!input) return;
-    configureFrame(input);
+    removeInternalHeaders();
     configureRenderer(input);
     
   }

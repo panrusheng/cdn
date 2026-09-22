@@ -5,34 +5,7 @@ body {
 
 body {
   box-sizing: border-box;
-  display: grid;
-  grid-template-rows: minmax(48px, auto) auto;
   overflow: hidden;
-}
-
-header {
-  box-sizing: border-box;
-  display: flex;
-  align-items: center;
-  min-height: 48px;
-  padding: 14px 12px;
-  background-color: rgba(0, 0, 0, 0.04);
-  border-bottom: 0.5px solid rgba(0, 0, 0, 0.1);
-  color: #000;
-  font: 500 15px system-ui;
-  line-height: 19px;
-  text-transform: capitalize;
-}
-
-header span {
-  min-width: 0;
-  overflow-wrap: anywhere;
-}
-
-body.dark header {
-  background-color: rgba(255, 255, 255, 0.06);
-  border-bottom-color: rgba(255, 255, 255, 0.1);
-  color: #fff;
 }
 
 #chart {
