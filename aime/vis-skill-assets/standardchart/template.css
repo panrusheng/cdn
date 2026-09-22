@@ -36,7 +36,7 @@ body.dark header {
 }
 
 #chart {
-  height: 290px !important;
+  height: var(--standard-chart-height, 290px) !important;
   min-width: 0;
   min-height: 0;
   margin: 12px;
