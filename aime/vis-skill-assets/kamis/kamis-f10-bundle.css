@@ -76,8 +76,8 @@ body[data-f10-chart-frame] { padding-bottom: 1px !important; }
 .chart-wrap.sankey-page .web-news-center-f10-sankey-box,
 .chart-wrap.sankey-page .f10Biz-sankey-drop-down { overflow: visible; }
 .chart-wrap.sankey-page .thsc-f10-dropDown-menu-list { z-index: 20; }
-#chrome-root { padding: 0 12px; }
-#charts-root { padding: 0 12px; }
+#chrome-root { padding: 0; }
+#charts-root { padding: 0; }
 .amis-root { min-height: 380px; width: 100%; }
 .amis-root .web-lite-f10-box,
 .amis-root .cxd-Page,

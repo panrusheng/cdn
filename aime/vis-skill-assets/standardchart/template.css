@@ -12,5 +12,5 @@ body {
   height: var(--standard-chart-height, 290px) !important;
   min-width: 0;
   min-height: 0;
-  margin: 12px;
+  margin: 12px 0;
 }
